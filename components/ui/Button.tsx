@@ -1,7 +1,8 @@
+import { ReactNode } from "react"
 
 export interface buttonProps {
     text: string,
-    icon?: any,
+    icon?: ReactNode,
     onclick?: () => void
 }
 

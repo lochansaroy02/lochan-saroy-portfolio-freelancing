@@ -6,7 +6,6 @@ import Mongo from "@/assets/icons/Mongo";
 import Next from "@/assets/icons/Next";
 import Node from "@/assets/icons/Node";
 import Postgres from "@/assets/icons/Postgres";
-
 import ReactIcon from "@/assets/icons/React"; // Renamed to avoid conflict with React import
 import Tailwind from "@/assets/icons/Tailwind";
 import SplitText from "@/components/animata/text/text-split";
@@ -16,7 +15,7 @@ import { MontserratFont } from "@/utils/fonts";
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { Code, Code2, Github, Lightbulb, Linkedin, Mail, Twitter } from "lucide-react";
-import { motion, useInView } from "motion/react"; // Ensure this import is correct for your version
+import { motion, Variants } from "motion/react";
 import { useRef } from 'react';
 
 const Page = () => {
@@ -63,10 +62,7 @@ const Page = () => {
         });
     }, []);
 
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true });
-
-    const marqueeVariants = {
+    const marqueeVariants: Variants = { // Added explicit type here
         animate: {
             x: ["0%", "-50%"],
             transition: {
@@ -154,7 +150,6 @@ const Page = () => {
                     <div className="mt-8 relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_50%,black_90%,transparent)]">
                         <motion.div
                             className="flex gap-4 w-max"
-                            //@ts-ignore
                             variants={marqueeVariants}
                             animate="animate"
                         >

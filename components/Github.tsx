@@ -25,12 +25,19 @@ const GithubMap = ({ src }: {
 
 
     // Combine them or choose one
-    const content = `${statsSrc}\n\n${langSrc}\n\n${streakSrc}`;
 
 
 
     return (
-        <ReactMarkdown remarkPlugins={[gfm]} children={source} />
+        <div>
+
+            <div>
+                {/* Pass 'source' as a child instead of a prop */}
+                <ReactMarkdown remarkPlugins={[gfm]}>
+                    {source}
+                </ReactMarkdown>
+            </div>
+        </div>
     )
 }
 

@@ -1,7 +1,35 @@
 "use client";
-
 import { Github, Instagram, Linkedin, Mail, MapPin, Phone, Send, Twitter } from 'lucide-react';
+import Link from 'next/link';
 import React, { useState } from 'react';
+
+// Move static data outside to prevent re-creation on every render
+const SOCIAL_LINKS = [
+    {
+        name: "LinkedIn",
+        href: "https://www.linkedin.com/in/lochankumar47/",
+        icon: <Linkedin size={20} />,
+        hoverClass: "hover:bg-blue-600",
+    },
+    {
+        name: "GitHub",
+        href: "https://github.com/lochansaroy02",
+        icon: <Github size={20} />,
+        hoverClass: "hover:bg-black",
+    },
+    {
+        name: "Twitter",
+        href: "http://x.com/LochanSaroy824",
+        icon: <Twitter size={20} />,
+        hoverClass: "hover:bg-sky-500",
+    },
+    {
+        name: "Instagram",
+        href: "https://www.instagram.com/lochansaroy47/",
+        icon: <Instagram size={20} />,
+        hoverClass: "hover:bg-pink-600",
+    },
+];
 
 const ContactPage = () => {
     const [formData, setFormData] = useState({
@@ -23,31 +51,32 @@ const ContactPage = () => {
         try {
             const response = await fetch('/api/email', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
 
             if (response.ok) {
                 setStatus("success");
-                setFormData({ name: '', email: '', subject: '', message: '' }); // Reset form
+                setFormData({ name: '', email: '', subject: '', message: '' });
             } else {
                 setStatus("error");
             }
         } catch (error) {
-            setStatus("error");
+            setStatus("error",);
+            console.error(error)
         }
     };
 
     return (
         <div className="w-full max-w-7xl mx-auto p-4">
+            {/* Main Grid Container */}
             <div className="grid md:grid-cols-2 gap-12 bg-white dark:bg-[#0a1d2e]/50 rounded-2xl shadow-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
 
                 {/* Left Side: Contact Info & Socials */}
                 <div className="p-10 bg-zinc-50 dark:bg-zinc-800/50 flex flex-col justify-between">
                     <div>
-                        <h1 className="text-4xl font-bold mb-6 text-zinc-800 dark:text-white">Let's grow together</h1>
+                        {/* Fixed the apostrophe error here */}
+                        <h1 className="text-4xl font-bold mb-6 text-zinc-800 dark:text-white">Let&apos;s grow together</h1>
                         <p className="text-zinc-600 dark:text-zinc-400 mb-10 text-lg">
                             Have a project in mind or want to collaborate? Feel free to reach out via the form or my social channels below.
                         </p>
@@ -85,42 +114,21 @@ const ContactPage = () => {
                         </div>
                     </div>
 
-                    {/* Social Networks */}
                     <div className="mt-12">
                         <p className="text-sm font-semibold uppercase tracking-wider text-zinc-500 mb-4">Connect with me</p>
                         <div className="flex gap-4">
-                            <a
-                                href="https://www.linkedin.com/in/lochankumar47/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"
-                            >
-                                <Linkedin size={20} />
-                            </a>
-                            <a
-                                href="https://github.com/lochansaroy02"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center hover:bg-black hover:text-white transition-all"
-                            >
-                                <Github size={20} />
-                            </a>
-                            <a
-                                href="http://x.com/LochanSaroy824"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center hover:bg-sky-500 hover:text-white transition-all"
-                            >
-                                <Twitter size={20} />
-                            </a>
-                            <a
-                                href="https://www.instagram.com/lochansaroy47/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all"
-                            >
-                                <Instagram size={20} />
-                            </a>
+                            {SOCIAL_LINKS.map((social) => (
+                                <Link
+                                    key={social.name}
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center hover:text-white transition-all ${social.hoverClass}`}
+                                    aria-label={social.name}
+                                >
+                                    {social.icon}
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -129,7 +137,6 @@ const ContactPage = () => {
                 <div className="p-10 flex flex-col justify-center">
                     <h2 className="text-2xl font-bold mb-6 text-zinc-800 dark:text-white">Send a Message</h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
-
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Name</label>
@@ -203,7 +210,8 @@ const ContactPage = () => {
                         )}
                     </form>
                 </div>
-            </div>
+
+            </div> {/* This now correctly closes the grid */}
         </div>
     );
 };

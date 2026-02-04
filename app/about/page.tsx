@@ -1,16 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
 import { BookOpen, ChevronDown, Code2, Quote, Sparkles } from "lucide-react";
-import { EB_Garamond } from 'next/font/google';
 import Image from 'next/image';
 import React from "react";
 
-const eb = EB_Garamond({
-    subsets: ['latin'],
-    weight: ['400', '600', '700'],
-    variable: '--font-eb',
-    display: 'swap',
-});
+// const eb = EB_Garamond({
+//     subsets: ['latin'],
+//     weight: ['400', '600', '700'],
+//     variable: '--font-eb',
+//     display: 'swap',
+// });
 
 const testimonials = [
     { name: "Alex Rivera", role: "Senior Dev", text: "Incredible attention to detail in UI/UX. A rare find." },
@@ -97,8 +96,8 @@ const FullPagePortfolio = () => {
                             <span className="text-sm font-bold uppercase tracking-widest">On my desk</span>
                         </div>
                         <h2 className="text-5xl md:text-7xl font-bold mb-6 italic">IKIGAI</h2>
-                        <p className={`text-3xl md:text-4xl text-gray-300 leading-snug mb-8 ${eb.className}`}>
-                            "The Japanese Secret to a Long and Happy Life"
+                        <p className={`text-3xl md:text-4xl text-gray-300 leading-snug mb-8 `}>
+                            The Japanese Secret to a Long and Happy Life
                         </p>
                         <button className="group relative px-8 py-3 bg-orange-500 text-black font-bold rounded-full overflow-hidden transition-all hover:pr-12">
                             <span className="relative z-10">Read Summary</span>
@@ -130,7 +129,7 @@ const FullPagePortfolio = () => {
             <SectionWrapper>
                 <div className="text-center mb-20">
                     <h2 className="text-4xl font-bold mb-4">Collaborations</h2>
-                    <p className="text-gray-500">Words from people I've had the pleasure to work with.</p>
+                    <p className="text-gray-500">Words from people I have had the pleasure to work with.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -141,7 +140,7 @@ const FullPagePortfolio = () => {
                             className="p-10 rounded-3xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent backdrop-blur-sm"
                         >
                             <Quote className="text-cyan-500 mb-6 opacity-30" size={32} />
-                            <p className="text-xl text-gray-200 mb-8 leading-relaxed italic">"{t.text}"</p>
+                            <p className="text-xl text-gray-200 mb-8 leading-relaxed italic">{t.text}</p>
                             <div className="flex items-center gap-4">
                                 <div className="h-12 w-12 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 flex items-center justify-center font-bold">
                                     {t.name[0]}
