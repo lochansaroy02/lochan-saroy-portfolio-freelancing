@@ -2,9 +2,18 @@ import focusTab from "@/assets/images/focus-tab.png"
 import malkhana from "@/assets/images/malkhana.png"
 
 
+import devtools from "@/assets/images/devtools.png"
 import loveverse from "@/assets/images/loveverse.png"
 
 export const ProjectData = [
+    {
+        name: "Devtools",
+        image: devtools,
+        description: "A modern suite of  developer tools including JSON formatting, cryptographic hashing, and case conversion, built with Next.js.",
+        repo: "https://github.com/lochansaroy02/devtools",
+        live: "https://devtools-eta-rust.vercel.app/"
+
+    },
     {
         name: "Digital Malkhana",
         image: malkhana,
@@ -26,8 +35,8 @@ export const ProjectData = [
         name: "Loveverse",
         image: loveverse,
         description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae ex quos quasi expedita, quaerat officiis labore beatae. Repudiandae, rem odit tempora officia natus a sunt possimus! Veritatis sunt ipsum vitae!",
-        repo: "",
-        live: ""
+        repo: "https://github.com/lochansaroy02/dating-app",
+        live: "https://loveverse-pi.vercel.app/"
     },
 
 
