@@ -3,7 +3,7 @@ import { ReactNode } from "react"
 export interface buttonProps {
     text: string,
     icon?: ReactNode,
-    className: string
+    className?: string
     onclick?: () => void
 }
 
