@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const ProjectsPage = () => {
     return (
-        <div className="w-full min-h-screen py-12 px-4 md:px-10 flex flex-col items-center  text-white">
+        <div className="w-full min-h-screen lg:py-12 lg:px-4 md:px-10 flex flex-col items-center  text-white">
 
             {/* Page Title */}
             <motion.div

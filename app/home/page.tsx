@@ -6,7 +6,7 @@ import Mongo from "@/assets/icons/Mongo";
 import Next from "@/assets/icons/Next";
 import Node from "@/assets/icons/Node";
 import Postgres from "@/assets/icons/Postgres";
-import ReactIcon from "@/assets/icons/React"; // Renamed to avoid conflict with React import
+import ReactIcon from "@/assets/icons/React";
 import Tailwind from "@/assets/icons/Tailwind";
 import SplitText from "@/components/animata/text/text-split";
 import Leetcode from "@/components/Leetcode";
@@ -15,18 +15,18 @@ import { MontserratFont } from "@/utils/fonts";
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { Code, Code2, Github, Lightbulb, Linkedin, Mail, Twitter } from "lucide-react";
-import { motion, Variants } from "motion/react";
+import { motion, Variants } from "motion/react"; // Note: ensure this matches your framer-motion version
 import { useRef } from 'react';
 
 const Page = () => {
     const paraRef = useRef(null);
 
     const data = [
-        { name: "Leetcode", icon: <Code size={"16px"} /> },
-        { name: "Github", icon: <Github size={"16px"} /> },
-        { name: "Linkedin", icon: <Linkedin size={"16px"} /> },
-        { name: "Twitter", icon: <Twitter size={"16px"} /> },
-        { name: "Email", icon: <Mail size={"16px"} /> },
+        { name: "Leetcode", Icon: Code },
+        { name: "Github", Icon: Github },
+        { name: "Linkedin", Icon: Linkedin },
+        { name: "Twitter", Icon: Twitter },
+        { name: "Email", Icon: Mail },
     ];
 
     const skills = [
@@ -44,25 +44,19 @@ const Page = () => {
     // Duplicating skills array for seamless infinite scroll
     const marqueeSkills = [...skills, ...skills];
 
-    const box = {
-        width: 100,
-        height: 100,
-        backgroundColor: "",
-        borderRadius: 5,
-    };
-
     useGSAP(() => {
-        // Note: Ensure elements with class 'arr' exist in your DOM for this to work
         const elements = gsap.utils.toArray('.arr');
-        gsap.from(elements, {
-            y: -20,
-            opacity: 0,
-            duration: 0.5,
-            stagger: 0.5
-        });
+        if (elements.length > 0) {
+            gsap.from(elements, {
+                y: -20,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.2 // Reduced stagger time slightly for better UX
+            });
+        }
     }, []);
 
-    const marqueeVariants: Variants = { // Added explicit type here
+    const marqueeVariants: Variants = {
         animate: {
             x: ["0%", "-50%"],
             transition: {
@@ -75,143 +69,96 @@ const Page = () => {
     };
 
     return (
-        <div className="ml-56 w-fit h-screen px-8 py-12">
-            <div>
-                <SplitText text="lochan" className="uppercase " />
+        /* 1. Changed to min-h-screen so content can scroll if it exceeds screen height
+           2. Changed w-fit to w-full max-w-5xl 
+           3. Added mobile padding (px-4 py-8)
+        */
+        <div className="md:ml-56 lg:ml-64 w-full max-w-6xl min-h-screen px-4 py-8 md:px-8 lg:py-12 overflow-x-hidden">
 
-                <h2 ref={paraRef} className={`text-4xl opacity-75 ${MontserratFont.className}`}>
+            {/* Added 'arr' class for GSAP targeting */}
+            <div className="arr">
+                <SplitText text="lochan" className="uppercase" />
+                <h2 ref={paraRef} className={`text-2xl md:text-3xl lg:text-4xl opacity-75 mt-2 ${MontserratFont.className}`}>
                     Full Stack Developer
                 </h2>
             </div>
-            <div className="mt-8 flex gap-4">
-                {data.map((item, index) => (
-                    <Button key={index} onclick={() => { console.log("hello") }} text={item.name} icon={item.icon} />
-                ))}
-            </div>
 
-            <p className="mt-4 text-[16px] text-balance font-light">
+            {/* Added 'arr' class */}
+            <p className="arr mt-4 text-sm md:text-base lg:text-lg text-balance font-light max-w-3xl text-neutral-300">
                 I’m a Full Stack Developer crafting lightning-fast websites using MERN & Next.js. From frontend finesse to backend muscle — I bring your vision to life with pixel-perfect precision and performance-driven code.
             </p>
-            <div className="mt-8">
-                {/* <div className="flex gap-4 items-center">
-                    <span className="p-2 rounded-lg bg-[#233212]">
-                        <Briefcase className="text-lg text-[#65a30d]" />
-                    </span>
-                    <h1 className="text-2xl">Top Projects</h1>
-                </div> */}
 
-                {/* <motion.div
-                    ref={ref}
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate={isInView ? "visible" : "hidden"}
-                    className="grid grid-cols-2 gap-4 mt-4"
-                >
-                    {ProjectData.map((item, index) => (
-                        <motion.div
+            {/* Social Links - Responsive Flex Wrap */}
+            <div className="arr w-full mt-8">
+                <div className="flex flex-wrap gap-3 md:gap-4">
+                    {data.map((item, index) => (
+                        <Button
                             key={index}
-                            //@ts-ignore
-                            variants={itemVariants}
-                            className="outline outline-neutral-700 flex flex-col justify-between rounded-2xl"
-                        >
-                            <div>
-                                <div className="rounded-t-2xl relative">
-                                    <img className="rounded-t-2xl" src={item.image.src} alt="no image" />
-                                </div>
-                                <div className="px-2 py-1">
-                                    <div className="px-2 py-1 my-2 w-fit rounded-2xl  border-gray-700">
-                                        <h1 className="text-lg">{item.name}</h1>
-                                    </div>
-                                    <div className="px-2">
-                                        <p className="text-[14px] text-justify">{item.description}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="p-2 flex gap-2 text-sm">
-                                <Button text="Code" icon={<Github size={12} />}
-                                    onclick={() => { window.open(item.repo, "_blank", "noopener,noreferrer") }} />
-                                <Button text="Live" icon={<Globe size={12} />}
-                                    onclick={() => { window.open(item.live, "_blank", "noopener,noreferrer") }} />
-                            </div>
-                        </motion.div>
+                            text={item.name}
+                            icon={<item.Icon className="w-4 h-4 md:w-5 md:h-5" />}
+                            className="text-xs md:text-sm px-3 py-1.5 md:px-4 md:py-2"
+                        />
                     ))}
-                </motion.div> */}
-
-                <div className="mt-8 w-full max-w-[800px]">
-                    <div className="flex gap-4 items-center">
-                        <span className="p-2 rounded-lg bg-[#442310]">
-                            <Lightbulb className="text-lg text-[#fcd34d]" />
-                        </span>
-                        <h1 className="text-2xl">Top Skills</h1>
-                    </div>
-
-                    {/* FIXED SECTION STARTS HERE */}
-                    <div className="mt-8 relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_50%,black_90%,transparent)]">
-                        <motion.div
-                            className="flex gap-4 w-max"
-                            variants={marqueeVariants}
-                            animate="animate"
-                        >
-                            {marqueeSkills.map((item, index) => (
-                                <motion.div
-                                    style={box}
-                                    key={index}
-                                    className="flex flex-col gap-1 items-center"
-                                >
-                                    {/* Logic to show circle background only for the first item of the ORIGINAL list.
-                                        Since we duplicated the list, we check index % skills.length */}
-                                    {(index % skills.length === 0) ?
-                                        <div className="size-24 bg-neutral-100 rounded-full p-1">
-                                            {item.icon}
-                                        </div> :
-                                        <div className="w-24 h-24">
-                                            {item.icon}
-                                        </div>
-                                    }
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    </div>
-                    {/* FIXED SECTION ENDS HERE */}
                 </div>
-
-                <div className="my-8">
-                    <div className="flex gap-4 items-center">
-                        <span className="p-2 rounded-lg bg-[#321212]">
-                            <Code2 className="text-lg text-[#bd4949]" />
-                        </span>
-                        <h1 className="text-2xl">Code Stats</h1>
-                    </div>
-                    <div className="flex gap-4  mt-4">
-                        <div className=" flex  items-center ">
-                            <Leetcode />
-                        </div>
-                        {/* <div className="  flex  flex-col gap-4 ">
-                            <div className="flex  gap-4   ">
-                                <GithubMap src="lang" />
-                                <GithubMap src="stats" />
-                            </div>
-                            <GithubMap />
-                        </div> */}
-                    </div>
-
-                </div>
-                {/* <div className="my-8">
-                    <div className="flex gap-4 items-center">
-                        <span className="p-2 rounded-lg bg-[#321212]">
-                            <Code2 className="text-lg text-[#bd4949]" />
-                        </span>
-                        <h1 className="text-2xl">Code Stats</h1>
-                    </div>
-
-
-                </div> */}
-                <div className="my-4">
-
-                </div>
-
             </div>
+
+            {/* Top Skills Marquee */}
+            <div className="arr mt-12 w-full lg:max-w-[800px]">
+                <div className="flex gap-3 md:gap-4 items-center mb-6">
+                    <span className="p-1.5 md:p-2 rounded-lg bg-[#442310]">
+                        <Lightbulb className="text-base md:text-lg text-[#fcd34d]" />
+                    </span>
+                    <h1 className="text-xl md:text-2xl font-semibold">Top Skills</h1>
+                </div>
+
+                <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+                    <motion.div
+                        className="flex gap-6 md:gap-10 w-max"
+                        variants={marqueeVariants}
+                        animate="animate"
+                    >
+                        {marqueeSkills.map((item, index) => (
+                            <div
+                                key={index}
+                                className="flex flex-col gap-2 items-center justify-center shrink-0"
+                            >
+                                {/* Removed hardcoded inline styles. Used responsive tailwind sizing */}
+                                {(index % skills.length === 0) ? (
+                                    <div className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-neutral-100 rounded-full p-2 flex items-center justify-center shadow-sm">
+                                        {item.icon}
+                                    </div>
+                                ) : (
+                                    <div className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center">
+                                        {item.icon}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* Code Stats Section */}
+            <div className="arr mt-12 mb-8">
+                <div className="flex gap-3 md:gap-4 items-center mb-6">
+                    <span className="p-1.5 md:p-2 rounded-lg bg-[#321212]">
+                        <Code2 className="text-base md:text-lg text-[#bd4949]" />
+                    </span>
+                    <h1 className="text-xl md:text-2xl font-semibold">Code Stats</h1>
+                </div>
+
+                {/* Made the Leetcode container responsive instead of a fixed 64 width */}
+                <div className="flex flex-col lg:flex-row gap-6 mt-4 w-full">
+                    <div className="flex w-full md:w-auto min-w-[280px] max-w-sm items-center">
+                        <Leetcode />
+                    </div>
+                    {/* Uncomment and adjust GithubMap wrappers similarly when ready */}
+                    {/* <div className="flex flex-col gap-4 w-full">
+                        ...
+                    </div> */}
+                </div>
+            </div>
+
         </div>
     );
 }

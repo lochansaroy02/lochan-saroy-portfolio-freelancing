@@ -41,7 +41,7 @@ export default function Layout({
           />
           {/* Content */}
           <Header />
-          <div className="flex relative   py-20 mx-48">
+          <div className="flex relative  py-8  lg:py-20  lg:mx-48">
             {children}
           </div>
         </div>

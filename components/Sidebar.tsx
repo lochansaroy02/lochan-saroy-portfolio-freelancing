@@ -6,7 +6,7 @@ import { MapPin } from "lucide-react";
 
 const Sidebar = () => {
     return (
-        <div className="w-56 fixed px-4 py-10 flex flex-col items-center h-screen">
+        <div className="w-56 fixed hidden md:block px-4 py-10 lg:flex flex-col items-center h-screen">
 
             {/* Avatar */}
             <motion.div
