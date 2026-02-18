@@ -4,6 +4,7 @@ import malkhana from "@/assets/images/malkhana.png"
 
 import devtools from "@/assets/images/devtools.png"
 import loveverse from "@/assets/images/loveverse.png"
+import tbsense from "@/assets/images/tbsense.png"
 
 export const ProjectData = [
     {
@@ -12,6 +13,14 @@ export const ProjectData = [
         description: "A modern suite of  developer tools including JSON formatting, cryptographic hashing, and case conversion, built with Next.js.",
         repo: "https://github.com/lochansaroy02/devtools",
         live: "https://devtools-eta-rust.vercel.app/"
+
+    },
+    {
+        name: "Tab Sense",
+        image: tbsense,
+        description: "TabSense is a privacy-focused Chrome extension providing real-time, session-based tab tracking and beautiful analytics to master your digital wellbeing.",
+        repo: "https://github.com/lochansaroy02/TabSense",
+
 
     },
     {
