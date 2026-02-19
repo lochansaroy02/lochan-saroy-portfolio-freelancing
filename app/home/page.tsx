@@ -12,15 +12,19 @@ import SplitText from "@/components/animata/text/text-split";
 import Leetcode from "@/components/Leetcode";
 import Button from "@/components/ui/Button";
 import { MontserratFont } from "@/utils/fonts";
+
+import profile from "@/public/images/profile2.jpg";
+
+
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { Code, Code2, Github, Lightbulb, Linkedin, Mail, Twitter } from "lucide-react";
 import { motion, Variants } from "motion/react"; // Note: ensure this matches your framer-motion version
+import Image from "next/image";
 import { useRef } from 'react';
 
 const Page = () => {
     const paraRef = useRef(null);
-
     const data = [
         { name: "Leetcode", Icon: Code },
         { name: "Github", Icon: Github },
@@ -73,10 +77,32 @@ const Page = () => {
            2. Changed w-fit to w-full max-w-5xl 
            3. Added mobile padding (px-4 py-8)
         */
-        <div className="md:ml-56 lg:ml-64 w-full max-w-6xl min-h-screen px-4 py-8 md:px-8 lg:py-12 overflow-x-hidden">
+        <div className="md:ml-56 lg:ml-64 flex w-full max-w-6xl min-h-screen flex-col items-center overflow-x-hidden px-4 py-8 md:px-8 lg:py-12">
 
-            {/* Added 'arr' class for GSAP targeting */}
-            <div className="arr">
+            <div className="my-4 flex flex-col px-4 lg:hidden">
+
+                {/* Avatar */}
+                <div
+                    className=""
+                >
+
+
+                    <Image
+                        alt="no image"
+                        src={profile.src}
+                        width="150"
+                        height="150"
+                    />
+                </div>
+                {/* Availability */}
+                <div className="mt-2 flex gap-2 items-center rounded-2xl border border-green-600 lg:px-3 px-1.5 py-0.5 lg:py-1">
+                    <div className="relative w-2 h-2 rounded-full bg-green-500">
+                        <div className="absolute inset-0 rounded-full bg-green-500 animate-ping" />
+                    </div>
+                    <span className="text-sm lg:text-lg">Available for work</span>
+                </div>
+            </div>
+            <div className="arr flex  items-center flex-col">
                 <SplitText text="lochan" className="uppercase" />
                 <h2 ref={paraRef} className={`text-2xl md:text-3xl lg:text-4xl opacity-75 mt-2 ${MontserratFont.className}`}>
                     Full Stack Developer
@@ -84,7 +110,7 @@ const Page = () => {
             </div>
 
             {/* Added 'arr' class */}
-            <p className="arr mt-4 text-sm md:text-base lg:text-lg text-balance font-light max-w-3xl text-neutral-300">
+            <p className="arr mt-4 text-xs md:text-base lg:text-lg text-balance font-light max-w-3xl text-neutral-300">
                 I’m a Full Stack Developer crafting lightning-fast websites using MERN & Next.js. From frontend finesse to backend muscle — I bring your vision to life with pixel-perfect precision and performance-driven code.
             </p>
 
