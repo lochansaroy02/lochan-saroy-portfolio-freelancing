@@ -11,28 +11,28 @@ import Tailwind from "@/assets/icons/Tailwind";
 import SplitText from "@/components/animata/text/text-split";
 import Leetcode from "@/components/Leetcode";
 import Button from "@/components/ui/Button";
-import { MontserratFont } from "@/utils/fonts";
-
 import profile from "@/public/images/profile2.jpg";
+import { MontserratFont } from "@/utils/fonts";
+import { motion } from "framer-motion";
 
 
 
 import Heading from "@/components/Heading";
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { Code, Code2, Github, Lightbulb, Linkedin, Mail, Twitter } from "lucide-react";
-import { motion, Variants } from "motion/react"; // Note: ensure this matches your framer-motion version
+import { Code, Code2, Github, Lightbulb, Linkedin, Twitter } from "lucide-react";
+import { Variants } from "motion/react"; // Note: ensure this matches your framer-motion version
 import Image from "next/image";
 import { useRef } from 'react';
 
 const Page = () => {
     const paraRef = useRef(null);
     const data = [
-        { name: "Leetcode", Icon: Code },
-        { name: "Github", Icon: Github },
-        { name: "Linkedin", Icon: Linkedin },
-        { name: "Twitter", Icon: Twitter },
-        { name: "Email", Icon: Mail },
+        { name: "Leetcode", Icon: Code, link: "https://leetcode.com/u/lochansaroy14/" },
+        { name: "Github", Icon: Github, link: "https://github.com/lochansaroy02" },
+        { name: "Linkedin", Icon: Linkedin, link: "https://www.linkedin.com/in/lochankumar47/" },
+        { name: "Twitter", Icon: Twitter, link: "https://x.com/LochanSaroy824" },
+
     ];
 
     const skills = [
@@ -81,9 +81,12 @@ const Page = () => {
         */
         <div className="md:ml-56 lg:ml-64  w-screen  px-2  py-8 md:px-8 lg:py-12">
             <div className="w-screen lg:hidden flex my-4  flex-col justify-center items-center g:hidden">
-                <div className="rounded-full mb-2 ">
+                <motion.div
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="rounded-full mb-2 ">
                     <Image alt="no image" className="aspect-square rounded-full" src={profile} height={"200"} width={"200"} />
-                </div>
+                </motion.div>
                 <div className="mt-2 flex gap-2 items-center w-fit rounded-2xl border border-green-600 lg:px-3 px-1.5 py-0.5 lg:py-1">
                     <div className="relative w-2 h-2 rounded-full bg-green-500">
                         <div className="absolute inset-0 rounded-full bg-green-500 animate-ping" />
@@ -112,9 +115,12 @@ const Page = () => {
                 <div className="flex lg:flex-wrap  items-center gap-2 md:gap-4">
                     {data.map((item, index) => (
                         <Button
+                            onclick={() => {
+                                window.open(item.link, '_blank', 'noopener,noreferrer');
+                            }}
                             key={index}
                             text={item.name}
-                            icon={<item.Icon className="w-2 h-2 md:w-5 md:h-5" />}
+                            icon={<item.Icon className="w-3 h-3 md:w-5 md:h-5" />}
                             className="text-xs md:text-sm px-4 py-1.5 md:px-4 md:py-2"
                         />
                     ))}

@@ -7,19 +7,19 @@ import Image from "next/image";
 
 const ProjectsPage = () => {
     return (
-        <div className="w-full min-h-screen lg:py-12 lg:px-4 md:px-10 flex flex-col items-center  text-white">
+        <div className="w-full px-8 min-h-screen  lg:py-12 lg:px-4 md:px-10 flex flex-col items-center  text-white">
 
             {/* Page Title */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-center mb-16"
+                className="text-center mb-8  lg:mb-16"
             >
-                <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r pb-4   from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r lg:pb-4   from-blue-400 to-purple-500 bg-clip-text text-transparent">
                     Featured Projects
                 </h1>
-                <p className="text-gray-400 mt-4 text-lg">A collection of my recent work and experiments.</p>
+                <p className="text-gray-400 mt-4 text-sm lg:text-lg">A collection of my recent work and experiments.</p>
             </motion.div>
 
             {/* Projects Grid */}
@@ -34,7 +34,7 @@ const ProjectsPage = () => {
                         className="group relative bg-[#161616] border border-gray-800 rounded-2xl overflow-hidden hover:border-gray-600 transition-colors"
                     >
                         {/* Image Container */}
-                        <div className="relative h-64 w-full overflow-hidden">
+                        <div className="relative lg:h-64 h-48 w-full overflow-hidden">
                             <Image
                                 src={project.image}
                                 alt={project.name}
@@ -56,16 +56,16 @@ const ProjectsPage = () => {
                         </div>
 
                         {/* Content */}
-                        <div className="p-6">
-                            <h3 className="text-2xl font-semibold mb-3">{project.name}</h3>
-                            <p className="text-gray-400 text-sm leading-relaxed line-clamp-3">
+                        <div className="lg:p-6 p-4 ">
+                            <h3 className="lg:text-2xl text-lg font-semibold mb-3">{project.name}</h3>
+                            <p className="text-gray-400 lg:text-sm  text-xs leading-relaxed line-clamp-3">
                                 {project.description}
                             </p>
 
                             <div className="mt-6 flex gap-4">
-                                {project.live && (
+                                {(
                                     <a
-                                        href={project.live}
+                                        href={project.live ? project.live : project.repo}
                                         className="text-sm font-medium text-blue-400 hover:text-blue-300 transition"
                                     >
                                         View Project →
