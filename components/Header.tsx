@@ -31,25 +31,39 @@ const Header = () => {
                         <div
                             key={index}
                             onClick={() => router.push(item.to)}
-                            className="group flex flex-col items-center gap-1 cursor-pointer transition-all duration-300 md:flex-row md:px-4 md:py-1 md:rounded-full md:hover:bg-neutral-800"
-                        >
-                            {/* The "Active Indicator" Pill (Material 3 Style) */}
-                            <div className={`
-                                relative flex items-center justify-center
-                                w-16 h-8 md:w-auto md:h-auto rounded-full transition-all duration-300
-                                ${isActive
-                                    ? 'bg-[#4f378b] text-[#e6e1e5] md:bg-white md:text-black'
-                                    : 'text-[#cac4d0] hover:bg-neutral-800/50 md:hover:bg-transparent'
+                            className={`
+                    group flex flex-col items-center gap-1 cursor-pointer transition-all duration-300
+                    md:flex-row md:px-5 md:py-2 md:rounded-full
+                    ${isActive
+                                    ? 'text-[#e6e1e5] md:bg-white md:text-black' // Unified active state for md/lg
+                                    : 'text-[#cac4d0] md:hover:bg-neutral-800'
                                 }
-                            `}>
-                                {item.icon}
+                `}
+                        >
+                            {/* Icon Container: Material 3 Pill on Mobile, Transparent on Desktop */}
+                            <div className={`
+                    relative flex items-center justify-center
+                    w-16 h-8 rounded-full transition-all duration-300
+                    md:w-auto md:h-auto md:bg-transparent 
+                    ${isActive
+                                    ? 'bg-[#4f378b] text-[#e6e1e5] md:text-inherit' // Pill color on mobile, inherit black on desktop
+                                    : 'bg-transparent text-[#cac4d0] group-hover:bg-neutral-800/50 md:group-hover:bg-transparent'
+                                }
+                `}>
+                                {/* Applying size constraints to icon if needed */}
+                                <div className="md:scale-110">
+                                    {item.icon}
+                                </div>
                             </div>
 
-                            {/* Label */}
+                            {/* Label: Aligned with the icon color on both platforms */}
                             <span className={`
-                                text-[12px] md:text-sm font-medium transition-colors duration-300
-                                ${isActive ? 'text-[#e6e1e5] md:text-white' : 'text-[#cac4d0]'}
-                            `}>
+                    text-[12px] md:text-sm font-medium transition-colors duration-300
+                    ${isActive
+                                    ? 'text-[#e6e1e5] md:text-inherit'
+                                    : 'text-[#cac4d0]'
+                                }
+                `}>
                                 {item.name}
                             </span>
                         </div>
