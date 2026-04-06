@@ -55,7 +55,7 @@ const Header = () => {
                                         }}
                                     >
                                         {/* Inner Gloss Shine (The secret 'Liquid' layer) */}
-                                        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/10 to-transparent opacity-50" />
+                                        <div className="absolute inset-0 rounded-full bg-linear-to-b from-white/10 to-transparent opacity-50" />
                                     </motion.div>
                                 )}
 
@@ -74,7 +74,7 @@ const Header = () => {
             </div>
 
             {/* Specular Highlight (The 'Liquid' edge effect on top of the bar) */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-linear-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
         </nav>
     );
 };
