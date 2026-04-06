@@ -1,6 +1,7 @@
 'use client';
 
 import { Briefcase, CircleUserRound, Home, Phone } from "lucide-react";
+import { motion } from "motion/react";
 import { usePathname, useRouter } from "next/navigation";
 
 const Header = () => {
@@ -8,69 +9,73 @@ const Header = () => {
     const pathname = usePathname();
 
     const data = [
-        { name: "Home", icon: <Home size={"18px"} />, to: "/home" },
-        { name: "Work", icon: <Briefcase size={"18px"} />, to: "/work" },
-        { name: "About", icon: <CircleUserRound size={"18px"} />, to: "/about" },
-        { name: "Contact", icon: <Phone size={"18px"} />, to: "/contact" },
+        { name: "Home", icon: <Home size={18} />, to: "/home" },
+        { name: "Work", icon: <Briefcase size={18} />, to: "/work" },
+        { name: "About", icon: <CircleUserRound size={18} />, to: "/about" },
+        { name: "Contact", icon: <Phone size={18} />, to: "/contact" },
     ];
 
     return (
-        /* Responsive Container: 
-           - Mobile: bottom-6, width 90%
-           - Desktop: top-4, width auto (md:w-fit)
-        */
-        <div className="fixed bottom-6 md:top-4 left-1/2 transform -translate-x-1/2 z-50 
-          md:h-10 w-[92%] md:w-fit flex items-center h-[60px] justify-center px-2 md:px-4 rounded-full 
-         backdrop-blur-md bg-neutral-900/80 text-white border border-neutral-700 shadow-2xl transition-all">
+        <nav className="fixed bottom-6 md:top-6 left-1/2 -translate-x-1/2 z-50">
+            {/* The Outer Shell: High Blur, Thin Border, Minimal Opacity */}
+            <div className="relative flex items-center p-1.5 rounded-full 
+                bg-white/3 dark:bg-black/20 
+                backdrop-blur-2xl 
+                border border-white/10 
+                shadow-[0_20px_50px_rgba(0,0,0,0.3)]
+                ring-1 ring-inset ring-white/5">
 
-            <div className="flex items-center justify-around w-full md:justify-center md:gap-2">
-                {data.map((item, index) => {
-                    const isActive = pathname === item.to;
+                <div className="flex items-center gap-1 relative">
+                    {data.map((item) => {
+                        const isActive = pathname === item.to;
 
-                    return (
-                        <div
-                            key={index}
-                            onClick={() => router.push(item.to)}
-                            className={`
-                    group flex flex-col items-center gap-1 cursor-pointer transition-all duration-300
-                    md:flex-row md:px-5 md:py-2 md:rounded-full
-                    ${isActive
-                                    ? 'text-[#e6e1e5] md:bg-white md:text-black' // Unified active state for md/lg
-                                    : 'text-[#cac4d0] md:hover:bg-neutral-800'
-                                }
-                `}
-                        >
-                            {/* Icon Container: Material 3 Pill on Mobile, Transparent on Desktop */}
-                            <div className={`
-                    relative flex items-center justify-center
-                    w-16 h-8 rounded-full transition-all duration-300
-                    md:w-auto md:h-auto md:bg-transparent 
-                    ${isActive
-                                    ? 'bg-[#4f378b] text-[#e6e1e5] md:text-inherit' // Pill color on mobile, inherit black on desktop
-                                    : 'bg-transparent text-[#cac4d0] group-hover:bg-neutral-800/50 md:group-hover:bg-transparent'
-                                }
-                `}>
-                                {/* Applying size constraints to icon if needed */}
-                                <div className="md:scale-110">
+                        return (
+                            <button
+                                key={item.to}
+                                onClick={() => router.push(item.to)}
+                                className={`
+                                    relative px-4 py-2 md:px-5 md:py-2 rounded-full 
+                                    flex items-center gap-2 group transition-all duration-300
+                                    ${isActive ? 'text-black' : 'text-white/60 hover:text-white'}
+                                `}
+                            >
+                                {/* The "Liquid" Slider: Animates only on the X-axis */}
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="nav-pill"
+                                        className="absolute inset-0 rounded-full z-0
+                                            bg-white/30 
+                                            backdrop-blur-xl
+                                            border border-white/20
+                                            shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_4_12px_rgba(0,0,0,0.2)]"
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 380,
+                                            damping: 30,
+                                        }}
+                                    >
+                                        {/* Inner Gloss Shine (The secret 'Liquid' layer) */}
+                                        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/10 to-transparent opacity-50" />
+                                    </motion.div>
+                                )}
+
+                                {/* Icon and Text Content */}
+                                <span className="relative z-10">
                                     {item.icon}
-                                </div>
-                            </div>
+                                </span>
 
-                            {/* Label: Aligned with the icon color on both platforms */}
-                            <span className={`
-                    text-[12px] md:text-sm font-medium transition-colors duration-300
-                    ${isActive
-                                    ? 'text-[#e6e1e5] md:text-inherit'
-                                    : 'text-[#cac4d0]'
-                                }
-                `}>
-                                {item.name}
-                            </span>
-                        </div>
-                    );
-                })}
+                                <span className="relative z-10 text-sm font-medium hidden md:block">
+                                    {item.name}
+                                </span>
+                            </button>
+                        );
+                    })}
+                </div>
             </div>
-        </div>
+
+            {/* Specular Highlight (The 'Liquid' edge effect on top of the bar) */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+        </nav>
     );
 };
 

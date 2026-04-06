@@ -13,7 +13,7 @@ import Leetcode from "@/components/Leetcode";
 import Button from "@/components/ui/Button";
 import profile from "@/public/images/profile2.jpg";
 import { MontserratFont } from "@/utils/fonts";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 
 

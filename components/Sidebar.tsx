@@ -1,8 +1,8 @@
 "use client";
 
 import profile from "@/public/images/profile2.jpg";
-import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
+import { motion } from "motion/react";
 
 const Sidebar = () => {
     return (

@@ -1,8 +1,8 @@
 "use client";
 
 import { ProjectData } from "@/utils/ProjectData";
-import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react"; // Optional: for icons
+import { motion } from "motion/react";
 import Image from "next/image";
 
 const ProjectsPage = () => {
